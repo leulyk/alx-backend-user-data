@@ -30,5 +30,5 @@ class BasicAuth(Auth):
             if b64encode(b64decode(authorization_header)) \
                     == authorization_header.encode('utf-8'):
                 return b64decode(authorization_header).decode('utf-8')
-        except:
+        except Exception:
             return None
