@@ -5,8 +5,8 @@
 """
 
 
-from Flask import request
-from Typing import List, TypeVar
+from flask import request
+from typing import List, TypeVar
 
 
 class Auth:
