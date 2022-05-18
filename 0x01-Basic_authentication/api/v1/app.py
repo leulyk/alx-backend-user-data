@@ -15,9 +15,9 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
-if os.getenv('AUTH_TYPE', 'auth'):
+if os.getenv('AUTH_TYPE', 'auth') == 'auth':
     auth = Auth()
-elif os.getenv('AUTH_TYPE', 'basic_auth'):
+if os.getenv('AUTH_TYPE', 'auth') == 'basic_auth':
     auth = BasicAuth()
 
 
