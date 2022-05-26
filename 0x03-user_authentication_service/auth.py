@@ -10,6 +10,7 @@ import uuid
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
 from user import User
+from typing import Union
 
 
 class Auth:
@@ -51,6 +52,18 @@ class Auth:
         session_id = _generate_uuid()
         self._db.update_user(user.id, session_id=session_id)
         return session_id
+
+    def get_user_from_session_id(self, session_id: str) -> Union[str, None]:
+        """
+            Returns the user of a specified session id
+        """
+        if not session_id:
+            return None
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+        except NoResultFound:
+            return None
+        return user
 
 
 def _hash_password(password: str) -> bytes:
