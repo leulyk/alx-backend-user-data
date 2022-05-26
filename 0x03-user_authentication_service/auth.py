@@ -65,6 +65,14 @@ class Auth:
             return None
         return user
 
+    def destroy_session(self, user_id: str) -> None:
+        """ destroys a session """
+        try:
+            user = self._db.find_user_by(id=user_id)
+        except NoResultFound:
+            return
+        self._db.update_user(user.id, session_id=None)
+
 
 def _hash_password(password: str) -> bytes:
     """
@@ -73,6 +81,6 @@ def _hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
 
-def _generate_uuid():
+def _generate_uuid() -> str:
     """ generates a unique string """
     return str(uuid.uuid4())
