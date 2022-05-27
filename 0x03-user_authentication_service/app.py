@@ -49,7 +49,7 @@ def login():
 @app.route('/sessions', methods=['DELETE'])
 def logout():
     """ implements the logout functionality """
-    session_id = resp.get_cookie("session_id")
+    session_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(session_id)
     if user:
         AUTH.destroy_session(user.id)
